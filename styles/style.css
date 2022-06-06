@@ -1,0 +1,76 @@
+/* No CSS *//*# sourceMappingURL=style.css.map */
+
+abbr {
+  text-decoration: none;
+  color: rgb(219, 168, 58);
+}
+
+.glassary {
+  list-style: none;
+}
+
+.glassary li {
+  margin-bottom: 15px;
+}
+
+.glassary a {
+  text-decoration: none;
+  color: rgb(38, 40, 155);
+  font-size: 24px;
+  transition: color 0.3s;
+}
+
+.glassary a:hover {
+  color: rgb(155, 104, 38);
+}
+
+.glassary a::after {
+  content: '=>';
+  margin-left: 5px;
+}
+
+.glassary a:hover::after {
+  animation: arrow 1s infinite;
+}
+
+@keyframes arrow {
+  0% {
+    margin-left: 5px;
+  }
+  50% {
+    margin-left: 15px;
+  }
+  100% {
+    margin-left: 5px;
+  }
+}
+
+.glassary-library {
+  margin-top: 60px;
+}
+
+.glassary-cart {
+  margin-left: 20px;
+  padding: 15px;
+  border: 2px solid #000;
+  border-radius: 20px;
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.glassary-term {
+  margin: 0;
+}
+
+.glassary-specification {
+  font-size: 18px;
+}
+
+.glassary-synonyms {
+  
+
+}
+
+.glassary-cart > * {
+  margin-bottom: 15px;
+}
