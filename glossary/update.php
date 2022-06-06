@@ -3,7 +3,7 @@
 $updatedData = json_decode(file_get_contents('php://input'));
 
 function dataUpdate($updatedData) {
-  if (($file = fopen('glassary.csv', 'w+')) !== false) {
+  if (($file = fopen('glossary.csv', 'w+')) !== false) {
     foreach($updatedData as $data) {
       if (fputcsv($file, $data, ',') === false) {
         return false;

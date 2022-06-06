@@ -5,31 +5,31 @@ abbr {
   color: rgb(219, 168, 58);
 }
 
-.glassary {
+.glossary {
   list-style: none;
 }
 
-.glassary li {
+.glossary li {
   margin-bottom: 15px;
 }
 
-.glassary a {
+.glossary a {
   text-decoration: none;
   color: rgb(38, 40, 155);
   font-size: 24px;
   transition: color 0.3s;
 }
 
-.glassary a:hover {
+.glossary a:hover {
   color: rgb(155, 104, 38);
 }
 
-.glassary a::after {
+.glossary a::after {
   content: '=>';
   margin-left: 5px;
 }
 
-.glassary a:hover::after {
+.glossary a:hover::after {
   animation: arrow 1s infinite;
 }
 
@@ -45,11 +45,11 @@ abbr {
   }
 }
 
-.glassary-library {
+.glossary-library {
   margin-top: 60px;
 }
 
-.glassary-cart {
+.glossary-cart {
   margin-left: 20px;
   padding: 15px;
   border: 2px solid #000;
@@ -58,19 +58,19 @@ abbr {
   margin-bottom: 30px;
 }
 
-.glassary-term {
+.glossary-term {
   margin: 0;
 }
 
-.glassary-specification {
+.glossary-specification {
   font-size: 18px;
 }
 
-.glassary-synonyms {
+.glossary-synonyms {
   
 
 }
 
-.glassary-cart > * {
+.glossary-cart > * {
   margin-bottom: 15px;
 }

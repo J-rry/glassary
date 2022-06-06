@@ -1,13 +1,13 @@
 const body = document.querySelector("body");
 
 //const siteUrl =  document.location.protocol + "://" + document.location.host + "/";
-const glassaryData = "glassary/data.php";
-const glassaryDataUpdate = "glassary/update.php";
-//const glassaryAddress = siteUrl + glassaryData;
+const glossaryData = "glossary/data.php";
+const glossaryDataUpdate = "glossary/update.php";
+//const glossaryAddress = siteUrl + glossaryData;
 
-fetch(glassaryData)
+fetch(glossaryData)
   .then(response => response.json())
-  .then(data => glassaryInit(data))
+  .then(data => glossaryInit(data))
   .catch((err) => console.log(err));
 
 //Класс Термина
@@ -64,26 +64,26 @@ class Term {
   }
 }
 
-//Класс Глассария
-class Glassary {
-  constructor(glassary = []) {
-    this.glassary = glassary;
+//Класс глоссария
+class Glossary {
+  constructor(glossary = []) {
+    this.glossary = glossary;
   }
   //Добавление нового термина(можно сразу несколько)
   addTerm(...term) {
-    this.glassary = [...this.glassary, ...term];
+    this.glossary = [...this.glossary, ...term];
   }
   //Получить Список терминов
   list() {
-    return this.glassary;
+    return this.glossary;
   }
   //Получить термин по id в глассарии
   getElementById(id) {
-    return this.glassary[id] || null;
+    return this.glossary[id] || null;
   }
   //Получить термин по его имени
   getElementByTerm(term) {
-    return this.glassary.find((element) => element.getTerm() === term) || null;
+    return this.glossary.find((element) => element.getTerm() === term) || null;
   }
   //Добавить термину html-обёртку(в type указывается тип обёртки)
   setTermWrappByType(term, number = 1, type = 3) {
@@ -98,7 +98,7 @@ class Glassary {
         ).getSpecification()}">${term}</a>`;
       case 3:
         const lowerCaseTerm = term.toLowerCase();
-        const link = `/glassary/${lowerCaseTerm[0]}#glassary-${lowerCaseTerm}`;
+        const link = `/glossary/${lowerCaseTerm[0]}#glossary-${lowerCaseTerm}`;
         return `<abbr title="${this.getElementByTerm(
           term
         ).getSpecification()}">${term}</abbr><sup>[<a href="${link}" title="${term}">${number}</a>]</sup>`;
@@ -106,7 +106,7 @@ class Glassary {
   }
 
   sendDataUpdate() {
-    const data = this.glassary.reduce((data, term) => {
+    const data = this.glossary.reduce((data, term) => {
       data.push([
         term.getTerm(), 
         term.getSpecification(), 
@@ -125,19 +125,19 @@ class Glassary {
           },
     }; 
 
-    fetch(glassaryDataUpdate, options)
+    fetch(glossaryDataUpdate, options)
     .then(response => response.text())
     .then((data) => console.log(data));
   }
 }
 
-function glassaryInit (data) {
-  //Создаём новый глассарий
-  const glassary = new Glassary();
+function glossaryInit (data) {
+  //Создаём новый глоссарий
+  const glossary = new Glossary();
 
-  //Наполняем глассарий
+  //Наполняем глоссарий
   data.forEach(term => {
-    glassary.addTerm(new Term(term[0], term[1], term[2], term[3]));
+    glossary.addTerm(new Term(term[0], term[1], term[2], term[3]));
   });
 
   const wrapAllTermsOnPage = () => {
@@ -166,7 +166,7 @@ function glassaryInit (data) {
             wordsInNode = node.textContent.trim().split(/\W/);
             //Массив найденных терминов в ноде
             containsTerms = wordsInNode.filter((word) =>
-              glassary.getElementByTerm(word) && !glassary.getElementByTerm(word).isFinded
+              glossary.getElementByTerm(word) && !glossary.getElementByTerm(word).isFinded
             );
             //Проверяем, есть ли в ноде термины
             if (containsTerms.length) {
@@ -175,12 +175,12 @@ function glassaryInit (data) {
 
               containsTerms.forEach((term, id) => {
                 $termsOnPageCount++;
-                const wrappedTerm = glassary.setTermWrappByType(term, $termsOnPageCount);
+                const wrappedTerm = glossary.setTermWrappByType(term, $termsOnPageCount);
 
 
                 $isAtLeastOneTermFinded = true;
-                glassary.getElementByTerm(term).isFinded = true;
-                glassary.getElementByTerm(term).addLink();
+                glossary.getElementByTerm(term).isFinded = true;
+                glossary.getElementByTerm(term).addLink();
 
                 //Если текст содержит только один термин, находим и заменяем его на "обёрнутый"
                 if (id === 0) {
@@ -188,7 +188,7 @@ function glassaryInit (data) {
                   //Если терминов в ноде больше одного
                 } else {
                   //Предыдущий "обёрнутый" термин
-                  let previousTerm = glassary.setTermWrappByType(
+                  let previousTerm = glossary.setTermWrappByType(
                     containsTerms[id - 1]
                   );
                   //Разбиваем ноду на 2 части, по "обёрнутому" термину
@@ -240,13 +240,13 @@ function glassaryInit (data) {
   };
 
   if (wrapAllTermsOnPage()) {
-    glassary.sendDataUpdate();
+    glossary.sendDataUpdate();
   }
   
 }
 
 //Добавляем новые термины в Гласарий
-// glassary.addTerm(
+// glossary.addTerm(
 //   new Term(
 //     "HTML",
 //     "Стандартизированный язык гипертекстовой разметки документов для просмотра веб-страниц в браузере. Веб-браузеры получают HTML документ от сервера по протоколам HTTP/HTTPS или открывают с локального диска, далее интерпретируют код в интерфейс, который будет отображаться на экране монитора"
